@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- TailwindCSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body>
+    <header class="w-[80%] mx-auto">
+        <h1 class="text-6xl font-bold text-green-500 mb-5 ">Plant Tracker</h1>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="bg-amber-200 p-4 rounded-xl">
+                <p>Total</p>
+                <p id="total">0</p>
+            </div>
+            <div class="bg-green-200 p-4 rounded-xl">
+                <p>Trive</p>
+                <p id="thrivingCount">0</p>
+            </div>
+            <div class="bg-red-200 p-4 rounded-xl">
+                <p>Struggling</p>
+                <p id="strugglingCount">0</p>
+            </div>
+        </div>
+    </header>
+    <hr class="my-5">
+    <main class="w-[80%] mx-auto">
+        <div>
+            <button class="bg-black text-white px-5 py-2" id="all-filter-btn">All</button>
+            <button class="bg-gray-300 px-5 py-2" id="thriving-filter-btn">Thrving</button>
+            <button class="bg-gray-300 px-5 py-2" id="struglling-filter-btn">Struggling</button>
+
+
+        </div>
+
+    </main>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
