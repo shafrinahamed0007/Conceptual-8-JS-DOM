@@ -40,6 +40,14 @@ function toggleStyle(id) {
   const selected = document.getElementById(id);
   selected.classList.remove("bg-gray-300", "text-black");
   selected.classList.add("bg-black", "text-white", "rounded-xl");
+
+  if (id == "thriving-filter-btn") {
+    allCardSection.classList.add("hidden");
+    filterSection.classList.remove("hidden");
+  } else if (id == "all-filter-btn") {
+    allCardSection.classList.remove("hidden");
+    filterSection.classList.add("hidden");
+  }
 }
 
 // mainContainer.addEventListener("click", function (event) {
@@ -117,12 +125,12 @@ mainContainer.addEventListener("click", function (event) {
     const notes = parentNode.querySelector(".notes").innerText;
 
     //    console.log(plantName, light, water, status, notes);
-
+    parentNode.querySelector(".status").innerText = "Thrive";
     const cardInfo = {
       plantName,
       light,
       water,
-      status,
+      status: "Thrive",
       notes,
     };
     const plantExist = thrivingList.find(
@@ -134,6 +142,38 @@ mainContainer.addEventListener("click", function (event) {
     }
 
     renderThriving();
+    calculateCount();
+  }
+
+  else if (event.target.classList.contains("struglling-filter-btn")) {
+    const parentNode = event.target.parentNode.parentNode;
+
+    const plantName = parentNode.querySelector(".plantName").innerText;
+    const light = parentNode.querySelector(".light").innerText;
+    const water = parentNode.querySelector(".water").innerText;
+    const status = parentNode.querySelector(".status").innerText;
+    const notes = parentNode.querySelector(".notes").innerText;
+
+    //    console.log(plantName, light, water, status, notes);
+    parentNode.querySelector(".status").innerText = "Struggle";
+    const cardInfo = {
+      plantName,
+      light,
+      water,
+      status: "Struggle",
+      notes,
+    };
+    const plantExist = strugglingList.find(
+      (item) => item.plantName == cardInfo.plantName,
+    );
+
+    if (!plantExist) {
+      strugglingList.push(cardInfo);
+    }
+
+    calculateCount();
+    renderStruggling();
+    
   }
 });
 
@@ -141,24 +181,25 @@ function renderThriving() {
   filterSection.innerHTML = "";
   for (let thrive of thrivingList) {
     console.log(thrive);
-    div.className =
-      "card flex justify-between border p-8 rounded-xl bg-gray-200 border-none shadow-amber-100";
+
     let div = document.createElement("div");
+    div.className =
+      "card flex justify-between border p-8 rounded-xl bg-gray-200 border-none shadow-amber-100 mt-4 mb-4";
     div.innerHTML = `
      <div class="space-y-6">
-                    <!-- part 1  -->
+                    
                     <div>
-                        <p class="plantName text-4xl">Plant Name 1</p>
+                        <p class="plantName text-4xl">${thrive.plantName}</p>
                         <p class="latinName">Lating Name</p>
                     </div>
 
-                    <!-- part 2 -->
+                
                     <div class="flex gap-2">
                         <p class="light bg-gray-300 px-5">Bright Indicate</p>
                         <p class="water bg-gray-300 px-5">Weekly</p>
                     </div>
-                    <!-- part 3 -->
-                    <p class="status">Not Applicable</p>
+                   
+                    <p class="status">${thrive.status}</p>
                     <p class="notes">New leaf unfurling by the east window</p>
 
                     <div class="flex gap-5">
@@ -167,5 +208,43 @@ function renderThriving() {
                     </div>
     
     `;
+    filterSection.appendChild(div);
   }
 }
+
+
+function renderStruggling() {
+  filterSection.innerHTML = "";
+  for (let struggle of strugglingList) {
+    console.log(struggle);
+
+    let div = document.createElement("div");
+    div.className =
+      "card flex justify-between border p-8 rounded-xl bg-gray-200 border-none shadow-amber-100 mt-4 mb-4";
+    div.innerHTML = `
+     <div class="space-y-6">
+                    
+                    <div>
+                        <p class="plantName text-4xl">${struggle.plantName}</p>
+                        <p class="latinName">Lating Name</p>
+                    </div>
+
+                
+                    <div class="flex gap-2">
+                        <p class="light bg-gray-300 px-5">Bright Indicate</p>
+                        <p class="water bg-gray-300 px-5">Weekly</p>
+                    </div>
+                   
+                    <p class="status">${struggle.status}</p>
+                    <p class="notes">New leaf unfurling by the east window</p>
+
+                    <div class="flex gap-5">
+                        <button class="thrivng-btn bg-green-200 px-4 py-2 rounded-xl">Thrive</button>
+                        <button class="struggle-btn bg-red-200 px-4 py-2 rounded-xl">Struggle</button>
+                    </div>
+    
+    `;
+    filterSection.appendChild(div);
+  }
+}
+
